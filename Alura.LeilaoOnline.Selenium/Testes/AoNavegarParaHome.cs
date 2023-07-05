@@ -1,18 +1,20 @@
+using Alura.LeilaoOnline.Selenium.Fixure;
 using Alura.LeilaoOnline.Selenium.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Reflection;
 
-namespace Alura.LeilaoOnline.Selenium
+namespace Alura.LeilaoOnline.Selenium.Testes
 {
-    public class AoNavegarParaHome : IDisposable
+    [Collection("Chrome Driver")]
+    public class AoNavegarParaHome
     {
-        private ChromeDriver driver;
+        private IWebDriver driver;
 
         // Setup
-        public AoNavegarParaHome()
+        public AoNavegarParaHome(TestFixture fixture)
         {
-            IWebDriver driver = new ChromeDriver(TestHelpers.PastaDoExecutavel);
+            driver = fixture.Driver;
         }
 
         // TearDown
@@ -37,7 +39,6 @@ namespace Alura.LeilaoOnline.Selenium
         public void DadoChromeAbertoDeveMostrarProximosLeiloesNaPagina()
         {
             // Arrange
-            IWebDriver driver = new ChromeDriver(TestHelpers.PastaDoExecutavel);
 
             // Act
             driver.Navigate().GoToUrl("http://localhost:5000");
