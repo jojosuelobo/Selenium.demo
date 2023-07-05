@@ -5,13 +5,26 @@ using System.Reflection;
 
 namespace Alura.LeilaoOnline.Selenium
 {
-    public class AoNavegarParaHome
+    public class AoNavegarParaHome : IDisposable
     {
+        private ChromeDriver driver;
+
+        // Setup
+        public AoNavegarParaHome()
+        {
+            IWebDriver driver = new ChromeDriver(TestHelpers.PastaDoExecutavel);
+        }
+
+        // TearDown
+        public void Dispose()
+        {
+            driver.Quit();
+        }
+
         [Fact]
         public void DadoChromeAbertoDeveMostrarLeiloesNoTitulo()
         {
             // Arrange
-            IWebDriver driver = new ChromeDriver(TestHelpers.PastaDoExecutavel);
 
             // Act
             driver.Navigate().GoToUrl("http://localhost:5000");
