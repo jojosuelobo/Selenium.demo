@@ -1,4 +1,5 @@
 ﻿using Alura.LeilaoOnline.Selenium.Fixure;
+using Alura.LeilaoOnline.Selenium.PageObjects;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,14 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         {
             // Arrage - Chrome Aberto na página inicial do sistema
             // Dados de registro válidos
-            driver.Navigate().GoToUrl("http://localhost:5000");
-                // nome
+
+            var registroPO = new RegistroPO(driver);
+            registroPO.Visitar();
+            //driver.Navigate().GoToUrl("http://localhost:5000");
+
+            registroPO.PreencheForm(nome: "Josue", email: "josuelobo@email.com", senha: "123", confirmSenha: "123");
+            /* 
+            // nome
             var inputNome = driver.FindElement(By.Id("Nome"));
             //driver.FindElement(By.Id("Nome")).SendKeys("Josue");
             // email
@@ -37,11 +44,15 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             inputEmail.SendKeys("josuelobo@email.com");
             inputPassowrd.SendKeys("123");
             inputConfirmSenha.SendKeys("123");
+            */
 
             // Act - Efetuo Registro 
-                // botão de registro
-            var botaoRegistro = driver.FindElement(By.Id("btnRegistro"));
-            botaoRegistro.Click();
+            // botão de registro
+
+            registroPO.SubmeteForm();
+               
+            //var botaoRegistro = driver.FindElement(By.Id("btnRegistro"));
+            //botaoRegistro.Click();
 
             // Assert - Devo ser redirecionado a página de registro
             Assert.Contains("Obrigado", driver.PageSource);
